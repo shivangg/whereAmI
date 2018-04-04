@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Map server -->
+  <arg name="map_file" default="$(find udacity_bot)/maps/jackal_race.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- static tf between /map and /odom 
+  <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster"
+      args="0 0 0 0 0 0 map odom 100"/>
+-->
+  <!-- Localization-->
+  <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <remap from="scan" to="udacity_bot/laser/scan"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="min_particles" value="40" />
+    <param name="max_particles" value="200" />
+    <param name="update_min_d" value="0.01" />
+    <param name="update_min_a" value="0.026" />
+    
+    <!-- to prevent the wheels from getting detected by rangefinder -->
+    <param name="laser_min_range" value="0.1" />
+    <param name="gui_publish_rate" value="50" />
+    <param name="kld_err" value="0.000001" />
+    <param name="odom_alpha1" value="0.9"/>
+    <param name="odom_alpha2" value="0.9"/>
+    <param name="odom_alpha3" value="0.9"/>
+    <param name="odom_alpha4" value="0.9"/>    
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="robot_footprint"/>
+    <param name="global_frame_id" value="map"/>
+  </node>
+
+  <!-- Move base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find udacity_bot)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find udacity_bot)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find udacity_bot)/config/base_local_planner_params.yaml" command="load" />
+
+    <remap from="cmd_vel" to="cmd_vel"/>
+    <remap from="odom" to="odom"/>
+    <remap from="scan" to="udacity_bot/laser/scan"/>
+
+    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+
+  </node>
+
+</launch>

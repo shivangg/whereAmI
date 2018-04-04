@@ -5,23 +5,36 @@
   <arg name="world" default="empty"/> 
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
-  <arg name="gui" default="true"/>
+  <arg name="gui" default="false"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
 
+<!-- Integrated the keyboard teleoperation of turtlebot in udacity_botl -->
+  <!-- <include file="$(find udacity_bot)/launch/keyboard_teleop.launch" /> -->
+  
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find udacity_bot)/worlds/jackal_race.world"/>
+ <arg name="world_name" value="$(find udacity_bot)/worlds/jackal_race.world"/>
+  <!-- <arg name="world_name" value="$(find udacity_bot)/worlds/udacity.world"/>  -->
+
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="gui" value="$(arg gui)"/>
     <arg name="headless" value="$(arg headless)"/>
     <arg name="debug" value="$(arg debug)"/>
   </include>
+
+  <!-- trying a new model in which the model doesn't slip  -->
+  <!-- <env name="GAZEBO_MODEL_PATH" value="$(find udacity_bot)/urdf:$(optenv GAZEBO_MODEL_PATH)"/> -->
+  <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find udacity_bot)/urdf/onecastorCar.sdf -sdf -model diffdrive" /> -->
+
   <!--spawn a robot in gazebo world-->
 
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" 
-  output="screen" args="-urdf -param robot_description -model udacity_bot"/>
-  
+ <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" 
+  output="screen" args="-urdf -param robot_description -model udacity_bot_four_wheel"/>
+
   <!--launch rviz-->
   <node name="rviz" pkg="rviz" type="rviz" args="-d /home/robond/projects/catkin_ws/src/udacity_bot/config/udacity_bot.rviz" respawn="false"/>
+
+  <!-- <include file="$(find udacity_bot)/launch/amcl.launch" />  -->
+
 </launch>

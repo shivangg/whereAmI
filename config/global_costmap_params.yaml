@@ -1,6 +1,7 @@
 global_costmap:
 # checking if navigation works independent of the localization performance
-   global_frame: odom
+# global_frame: odom
+   global_frame: map
    robot_base_frame: robot_footprint
    update_frequency: 10.0
    publish_frequency: 10.0

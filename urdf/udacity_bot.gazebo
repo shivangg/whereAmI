@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot>
 
-<!--   <gazebo>
+  <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
@@ -16,10 +16,10 @@
       <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>robot_footprint</robotBaseFrame>
     </plugin>
-  </gazebo> -->
+  </gazebo>
 
 <!-- skid steer plugin for the 4 wheeled drive -->
-  <gazebo>
+  <!-- <gazebo>
     <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
       <updateRate>100.0</updateRate>
       <alwaysOn>true</alwaysOn>
@@ -40,7 +40,7 @@
       <odometryFrame>odom</odometryFrame>
       <broadcastTF>true</broadcastTF>
     </plugin>
-  </gazebo>
+  </gazebo> -->
 
   <!-- <gazebo reference="back_castor">
     <turnGravityOff>false</turnGravityOff>

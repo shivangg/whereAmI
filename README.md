@@ -1,4 +1,7 @@
-# The Where I Am Project for UDACITY Robotics SOftware Nanodegree
+# The WhereAmI project
+Please see the [Project Report](https://github.com/shivangg/whereAmI/raw/master/WhereAmI_ProjectReport.pdf) for complete information.
+
+A robot asking "Where am I?" is the fundamental question which is answered by the solving the robot localization problem.
 
 This package is being built from scratch to understand ROS and AMCL implementation better.
 
